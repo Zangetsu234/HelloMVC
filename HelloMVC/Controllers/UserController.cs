@@ -69,6 +69,12 @@ namespace HelloMVC.Controllers
             return RedirectToAction("Index");
             //else return edit with errors
         }
+        public ActionResult ResetPassword(int ID)
+        {
+            UserService users = new UserService();
+            users.ResetPassword(ID);
+            return RedirectToAction("Index");
+        }
         public ActionResult Delete(int ID)
         {
             UserService users = new UserService();

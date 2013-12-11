@@ -43,6 +43,13 @@ namespace BLL
             }
             return false;
         }
+        public void ResetPassword(int ID)
+        {
+            UserDAO dao = new UserDAO();
+            User user = dao.GetUserByID(ID);
+            user.Password = RandomPassword();
+            dao.UpdateUser(user);
+        }
         private string RandomPassword()
         {
             string password = "";
@@ -88,15 +95,6 @@ namespace BLL
             user.Email = userFM.Email;
             dao.UpdateUser(user);
         }
-        //public bool IsValidPassword(PasswordFM passwordFM)
-        //{
-        //    UserDAO dao = new UserDAO();
-        //    if (passwordFM.Password != null && passwordFM.Password.Length > 5 && dao.GetUserByEmail(passwordFM.Password) == null)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
         public PasswordFM GetPasswordFM(int ID)
         {
             UserDAO dao = new UserDAO();
@@ -116,7 +114,6 @@ namespace BLL
             UserDAO dao = new UserDAO();
             dao.DeleteUser(ID);
         }
-
         public bool VerifyPassword(PasswordFM passwordFM)
         {
             if(passwordFM.CurrentPassword == GetPasswordFM(passwordFM.ID).CurrentPassword)
